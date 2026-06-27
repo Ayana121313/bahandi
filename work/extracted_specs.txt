@@ -1,0 +1,1183 @@
+
+====================================================================================================
+PRODUCT.md.pdf
+PAGES: 8
+
+--- PAGE 1 ---
+# PRODUCT.md
+# WasteIQ — AI Write-Off Management System
+## Purpose
+WasteIQ digitizes the write-off process for restaurant chains. Employees create write-off
+requests in under 15 seconds using AI image recognition, while managers approve requests,
+analyze losses, generate reports, and improve operations.
+Primary goal: automate write-offs and provide management with accurate operational
+analytics.
+---
+# User Roles
+## Employee
+Create write-off requests.
+Features:
+- Login
+- Personal profile
+- Report write-off
+- Camera upload
+- Gallery upload
+- AI product detection
+- Manual correction
+- Barcode scan (future)
+- Personal statistics
+- AI recommendations
+- Report history
+---
+## Manager
+Approve requests and monitor operations.
+Features:
+- Dashboard
+- Pending approvals
+- Approve / Reject
+- Analytics
+- Employee statistics
+- Supplier statistics
+- PDF reports
+
+--- PAGE 2 ---
+- Export Excel / Google Sheets
+- Heat Map
+- Executive dashboard
+---
+# Authentication
+Secure login.
+Roles:
+- Employee
+- Manager
+Each user belongs to one restaurant branch.
+---
+# Employee Flow
+Login
+↓
+Dashboard
+↓
+Large button
+📷 Report Write-Off
+↓
+Camera opens immediately
+↓
+Take photo
+↓
+Roboflow detects:
+- Product
+- Quantity
+- Confidence
+
+--- PAGE 3 ---
+↓
+Employee may edit result
+↓
+Select reason:
+- Expired
+- Burned
+- Damaged
+- Dropped
+- Wrong preparation
+- Supplier defect
+- Other
+↓
+Select type:
+- Without deduction
+- With deduction
+If "With deduction":
+Select employee.
+↓
+Required comment (minimum 10 characters)
+↓
+Submit
+↓
+Manager receives request.
+Goal:
+Complete in under 15 seconds.
+---
+# Manager Flow
+Dashboard
+
+--- PAGE 4 ---
+↓
+Pending Requests
+↓
+Review photo
+↓
+Approve or Reject
+↓
+Approved request:
+- Added to history
+- Included in analytics
+- Available for PDF export
+- Ready for iiko integration
+---
+# AI Detection
+Roboflow identifies:
+- Product
+- Quantity
+- Confidence
+Employees can always manually adjust AI results.
+---
+# Employee Profile
+Displays:
+- Name
+- Position
+- Branch
+- Completed reports
+- Personal statistics
+- Frequent mistakes
+- AI recommendations
+- Monthly performance
+
+--- PAGE 5 ---
+- Achievements
+Examples:
+"You often drop burger patties."
+"Most of your mistakes occur during evening shifts."
+---
+# Manager Dashboard
+Displays:
+- Total losses (₸)
+- Write-off count
+- Losses by product
+- Losses by employee
+- Losses by supplier
+- Losses by branch
+- Pending requests
+- Approval rate
+---
+# Supplier Module
+Each supplier includes:
+- Rating
+- Complaints
+- Financial losses
+- Product quality
+- AI quality analysis
+- Contact information
+Managers can compare suppliers.
+---
+# Analytics
+Show:
+- Product losses
+- Vegetable losses
+- Meat losses
+- Bread losses
+
+--- PAGE 6 ---
+- Beverage losses
+- Employee ranking
+- Branch ranking
+- Supplier ranking
+- Monthly trends
+- Financial losses
+---
+# Heat Map
+Restaurant locations:
+🟢 Low losses
+🟡 Medium losses
+🔴 High losses
+---
+# AI Assistant
+Employee:
+Personal improvement tips.
+Manager:
+Root cause analysis.
+Forecasts.
+Supplier recommendations.
+Operational insights.
+Examples:
+"42% of tomato losses are linked to FreshFood."
+"Evening shifts generate more damaged buns."
+---
+# Reports
+Generate:
+
+--- PAGE 7 ---
+- Daily PDF
+- Weekly PDF
+- Monthly PDF
+- Quarterly PDF
+- Yearly PDF
+- iiko write-off document
+Export:
+PDF
+Excel
+Google Sheets
+---
+# Executive Dashboard
+Single page for management.
+Includes:
+- Network losses
+- Branch losses
+- Employee losses
+- Supplier losses
+- Product losses
+- Forecast
+- AI insights
+- Potential savings
+---
+# Prevented Losses
+Main KPI.
+Show not only losses, but also money saved using AI recommendations.
+Example:
+"Patty losses decreased by 18%, saving ₸430,000 this month."
+---
+# Localization
+
+--- PAGE 8 ---
+The entire application must support three languages:
+- 󰏱 Қазақша
+- 󰐮 Русский
+- 󰏅 English
+Language switcher must be available in the navigation bar.
+Changing language instantly updates:
+- Navigation
+- Buttons
+- Forms
+- Validation
+- AI interface
+- Dashboard
+- Reports
+- Notifications
+The selected language must persist between sessions.
+All text must use an internationalization system (i18n). Never hardcode UI strings.
+---
+# Product Principles
+- Mobile First
+- Fast Reporting
+- AI Assisted
+- Human Verified
+- Enterprise Ready
+- iiko Ready
+- Clean UX
+- Three-click maximum
+- Secure by design
+- Scalable architecture
+
+====================================================================================================
+ARCHITECTURE.md.pdf
+PAGES: 11
+
+--- PAGE 1 ---
+# ARCHITECTURE.md
+# Technical Stack
+Framework
+- Next.js 15 (App Router)
+- React 19
+- TypeScript
+Styling
+- TailwindCSS
+- shadcn/ui
+- Framer Motion
+- Lucide Icons
+Backend
+- Supabase
+- PostgreSQL
+- Prisma ORM
+Forms
+- React Hook Form
+- Zod Validation
+Other
+- React Query
+- Server Actions
+- next-intl (Localization)
+- jsPDF / pdf-lib
+- Recharts
+- React Leaflet
+---
+# Project Structure
+/app
+(auth)
+(employee)
+(manager)
+(api)
+/components
+
+--- PAGE 2 ---
+/ui
+/layout
+/charts
+/forms
+/maps
+/ai
+/features
+/auth
+/reports
+/analytics
+/suppliers
+/dashboard
+/profile
+/services
+/roboflow
+/openai
+/iiko
+/pdf
+/export
+/hooks
+/lib
+/prisma
+/types
+/utils
+/messages
+/public
+---
+# Authentication
+Supabase Authentication
+Roles
+Employee
+Manager
+
+--- PAGE 3 ---
+Store role in database.
+Protect routes.
+Redirect automatically.
+Persist sessions.
+---
+# Database
+Main tables
+users
+branches
+restaurants
+products
+suppliers
+waste_reports
+report_images
+approvals
+analytics
+notifications
+ai_insights
+achievements
+pdf_reports
+Every report stores
+photo
+product
+quantity
+
+--- PAGE 4 ---
+reason
+branch
+employee
+manager
+status
+created_at
+approved_at
+cost
+---
+# Roboflow Integration
+Workflow
+find-french-friesm-onion-and-others
+Workspace
+aluas-workspace-qi0vz
+Use official Roboflow SDK.
+Environment variable
+ROBOFLOW_API_KEY
+Pipeline
+Image
+↓
+Roboflow
+↓
+Product
+Confidence
+
+--- PAGE 5 ---
+Bounding boxes
+↓
+Backend parser
+↓
+Return only
+Product
+Quantity
+Confidence
+Never expose API keys.
+Retry failed requests.
+Timeout after 10 seconds.
+---
+# OpenAI Integration
+Environment
+OPENAI_API_KEY
+Create AI service layer.
+Functions
+generateEmployeeAdvice()
+generateManagerInsights()
+generateSupplierAnalysis()
+generateForecast()
+generateRootCause()
+Never call OpenAI directly from UI.
+Always through backend services.
+
+--- PAGE 6 ---
+---
+# PDF Service
+Generate
+Daily report
+Weekly report
+Monthly report
+Quarterly report
+Yearly report
+iiko write-off act
+Include
+Company
+Branch
+Date
+Employee
+Products
+Quantity
+Loss
+Status
+Photos (optional)
+QR verification
+---
+# Export
+Support
+PDF
+
+--- PAGE 7 ---
+Excel (.xlsx)
+CSV
+Google Sheets
+---
+# Analytics Engine
+Calculate
+Loss by product
+Loss by supplier
+Loss by employee
+Loss by branch
+Loss by category
+Approval rate
+Average processing time
+Financial losses
+Prevented losses
+Refresh automatically.
+---
+# AI Analytics
+Root Cause Analysis
+Forecast
+Supplier Rating
+Employee Advice
+Branch Health Score
+Daily AI Insights
+
+--- PAGE 8 ---
+Executive Summary
+---
+# Supplier Rating
+Store
+supplier
+delivery_date
+photos
+quality_score
+complaints
+loss_amount
+AI calculates supplier score.
+---
+# Notifications
+Realtime notifications.
+Employee
+Report approved
+Report rejected
+Manager
+New request
+High losses
+Supplier warning
+AI insight
+---
+# Heat Map
+
+--- PAGE 9 ---
+Map every branch.
+Status
+Green
+Yellow
+Red
+Calculate from
+Loss %
+Financial losses
+Approval delays
+---
+# Localization
+Use next-intl.
+Languages
+Kazakh
+Russian
+English
+Never hardcode text.
+Store translations inside
+/messages
+Example
+/messages/en.json
+/messages/ru.json
+/messages/kz.json
+Persist language selection.
+
+--- PAGE 10 ---
+Detect browser language on first visit.
+---
+# Security
+Role-based access
+Protected API routes
+Environment variables only
+Image validation
+File size limits
+Rate limiting
+Audit logs
+---
+# Performance
+Lazy loading
+Image optimization
+Caching
+Pagination
+Server Components
+Skeleton loaders
+Optimistic updates
+---
+# iiko Integration
+Architecture must allow future API integration.
+After manager approval
+↓
+
+--- PAGE 11 ---
+Generate write-off act
+↓
+Prepare payload
+↓
+Send to iiko API
+For MVP simulate successful integration.
+---
+# Coding Rules
+No duplicated code.
+Reusable components.
+Reusable services.
+Strong typing.
+Modular architecture.
+No business logic inside UI.
+No hardcoded strings.
+No hardcoded colors.
+No mock buttons.
+Every feature must work.
+
+====================================================================================================
+DESIGN_SYSTEM.ьв.pdf
+PAGES: 12
+
+--- PAGE 1 ---
+# DESIGN_SYSTEM.md
+# Design Philosophy
+The application must feel like enterprise software built in Silicon Valley.
+Reference products
+- Stripe Dashboard
+- Linear
+- Notion
+- Vercel
+- OpenAI
+- Arc Browser
+Design priorities
+- Extremely fast
+- Mobile-first
+- Minimal clicks
+- Clear information hierarchy
+- Beautiful but practical
+- Built for restaurant employees
+The UI should feel premium, modern and responsive.
+---
+# Brand
+Use Bahandi Design System.
+Primary
+#1B5E20
+Accent
+#E65100
+Secondary
+#2E7D32
+Success
+#2E7D32
+
+--- PAGE 2 ---
+Warning
+#E65100
+Error
+#B71C1C
+Background
+#F7F8FA
+Cards
+#FFFFFF
+Text
+#111827
+---
+# Typography
+Font
+Montserrat
+Weights
+500
+600
+700
+800
+Bold titles.
+Readable body text.
+Uppercase only for buttons and section titles.
+---
+# Layout
+
+--- PAGE 3 ---
+Desktop
+Sidebar
+Top Navigation
+Content
+Mobile
+Bottom Navigation
+Floating Action Button
+Fullscreen camera
+Every page must work perfectly on:
+Desktop
+Tablet
+Mobile
+---
+# Navigation
+Employee
+Home
+Report Write-Off
+History
+Profile
+Manager
+Dashboard
+Approvals
+Analytics
+Suppliers
+
+--- PAGE 4 ---
+Reports
+Profile
+Language Switcher
+Theme Switcher
+---
+# Employee Dashboard
+Show
+Greeting
+Employee name
+Branch
+Today's reports
+Large primary button
+📷 REPORT WRITE-OFF
+Quick statistics
+Recent reports
+AI recommendation card
+---
+# Report Flow
+Step 1
+Camera opens instantly.
+Step 2
+Capture or upload image.
+Step 3
+Roboflow analyzes image.
+
+--- PAGE 5 ---
+Beautiful loading animation.
+Step 4
+Display
+Photo
+Detected product
+Confidence
+Quantity
+Reason buttons
+Comment
+Submit
+Maximum
+3 taps after photo.
+---
+# Manager Dashboard
+Top cards
+Today's Losses
+Monthly Losses
+Pending Requests
+Prevented Losses
+Approval Rate
+Charts
+Loss by Product
+Loss by Branch
+Loss by Employee
+
+--- PAGE 6 ---
+Loss by Supplier
+Loss Trend
+Hourly Losses
+---
+# Executive Dashboard
+One-page overview.
+Show
+Network losses
+Top branches
+Worst branches
+Top employees
+Supplier ranking
+Forecast
+Potential savings
+AI Insight of the Day
+---
+# Supplier Page
+Cards instead of tables.
+Each supplier shows
+Logo
+Rating
+Complaints
+Losses
+Products
+
+--- PAGE 7 ---
+Phone
+Email
+AI recommendation
+Quality trend
+---
+# Analytics
+Use interactive charts.
+Recharts only.
+Animated counters.
+Hover tooltips.
+Date filters
+Today
+Week
+Month
+Quarter
+Year
+---
+# Maps
+Interactive branch map.
+Green
+Low losses
+Yellow
+Medium
+Red
+
+--- PAGE 8 ---
+High
+Click branch
+↓
+Open branch analytics.
+---
+# Profile
+Employee
+Avatar
+Position
+Branch
+Reports
+Mistakes
+Achievements
+AI Coach
+Manager
+Avatar
+Statistics
+Managed branches
+Approvals
+Performance
+---
+# AI Components
+AI Insight Card
+AI Recommendation
+
+--- PAGE 9 ---
+AI Forecast
+Supplier Analysis
+Employee Advice
+Root Cause Analysis
+Always use
+🤖 icon
+Never make AI feel hidden.
+---
+# PDF
+Modern report layout.
+Company logo.
+Professional tables.
+Charts.
+QR code.
+Digital signature.
+---
+# Components
+Use shadcn/ui.
+Rounded cards
+8px radius
+Large buttons
+Large inputs
+Soft shadows
+Smooth hover
+
+--- PAGE 10 ---
+Framer Motion animations
+Skeleton loading
+Toast notifications
+Confirmation dialogs
+No browser alerts.
+---
+# Mobile UX
+Everything must work with one hand.
+Primary action always reachable.
+Large touch targets.
+Bottom navigation.
+Camera full screen.
+Responsive charts.
+---
+# Accessibility
+Keyboard navigation
+High contrast
+Visible focus
+Screen reader labels
+WCAG AA
+---
+# Localization
+Support
+󰏱 Қазақша
+
+--- PAGE 11 ---
+󰐮 Русский
+󰏅 English
+Language switch updates
+Navigation
+Buttons
+Forms
+Validation
+Notifications
+Analytics
+PDF reports
+Date formats
+Currency formatting
+No hardcoded text.
+---
+# Dark Mode
+Support Light and Dark.
+Remember user preference.
+---
+# Animations
+Framer Motion.
+Page transitions
+Fade
+Slide
+Scale
+
+--- PAGE 12 ---
+Chart animations
+Card hover
+Button press
+Success animation
+Confetti after successful submission.
+Animations should feel smooth, never distracting.
+---
+# UX Rules
+Maximum 3 clicks for common actions.
+Never show unnecessary forms.
+Never overload screens.
+Use progressive disclosure.
+Always show loading state.
+Always show empty state.
+Always show error state.
+Every action gives immediate feedback.
+---
+# Final Quality Standard
+The application must not look like a hackathon prototype.
+It should look like production software that Bahandi could deploy across all restaurant
+branches immediately.
+Every page must be fully functional.
+Every interaction must feel intentional.
+Every screen should be presentation-ready for judges and company executives.
+
+====================================================================================================
+Сделай сайт для Разработки системы автоматизации процесса списания на торговых точках.pdf
+PAGES: 9
+
+--- PAGE 1 ---
+Хакатон кейс №1: Разработка системы автоматизации
+процесса списания на торговых точкх
+Цель:
+Создать сайт который выглядит как приложение для цифровизации и контроля
+фактических процессов списания, которые происходят на торговых точках.
+Основной функционал системы:
+Сотрудники торговых точек должны иметь возможность через телефон отправлять
+заявки на списание продукции в онлайн-формате.
+Примеры списаний:
+лишние или не соответствующие стандартам помидоры;
+котлеты, которые невозможно повторно использовать после
+приготовления;
+поврежденные или помятые булочки;
+упавшая котлета, которая не может быть использована по санитарным
+требованиям;
+другие фактические списания, возникающие на торговой точке.
+Процесс работы:
+Сотрудник подготавливает продукцию, которая подлежит списанию.
+Заходит в мобильное приложение или веб-браузер.
+Прикрепляет фотографию продукции (для подтверждения фактического
+состояния)
+Выбирает торговую точку из списка.
+Выбирает тип списания:
+без удержания с сотрудника;
+с удержанием с сотрудника.
+Если выбрано удержание — из списка выбирается сотрудник, с которого
+необходимо произвести удержание.
+Добавляется обязательный комментарий (минимум 10 символов).
+Заявка отправляется на проверку ответственному сотруднику.
+Функции проверяющего:
+Проверяющий должен иметь возможность:
+просматривать заявки;
+проверять фото и введенную информацию;
+подтверждать или отклонять заявку.
+Интеграция с Iiko:
+После подтверждения заявки:
+система автоматически создает акт списания в Iiko; то есть сайт должен
+выдавать отчет о списанных товарах в документе в формате пдф
+данные передаются в Iiko;
+соответствующие остатки автоматически списываются.
+Роли пользователей:
+1. Отправитель (сотрудник торговой точки):
+создание заявки на списание;
+добавление фотографии;
+заполнение информации по списанию.
+2. Проверяющий:
+контроль заявок;
+
+--- PAGE 2 ---
+подтверждение или отклонение списаний.
+Дополнительные требования:
+удобный интерфейс для мобильных устройств;
+индивидуальный доступ для каждого пользователя;
+сохранение истории всех списаний;
+интеграция с системой Iiko.
+может он будет считать сумму потерь
+и типо аналитика
+вот столько списано помидоров
+столько котлет
+Сделай сайт для Разработки системы автоматизации процесса списания на
+торговых точках
+Во первых, сайт должен иметь сценарий
+Логин и выбор ролей
+Работник/отправляющий
+Проверяющий менеджер
+У отправляющего работника после получения доступа должна быть доступна
+личная страница с Именем, местом работы филиалом
+Второй доступной открывающейся страницей должна быть возможность
+отправлять заявки связанные с проблемами и списания:
+Если цель — сделать процесс максимально быстрым (10–20 секунд), то
+сотрудник вообще не должен ничего долго заполнять. Хороший UX может
+выглядеть так.
+Сценарий
+1. Кнопка «Сообщить о списании»
+На главном экране большая кнопка:
+📷 Списать товар
+2. Сразу открывается камера
+Сотрудник фотографирует:
+испорченный бургер;
+просроченное молоко;
+
+--- PAGE 3 ---
+разбитую бутылку;
+подгоревшую картошку.
+После снимка сразу открывается следующий экран.
+3. AI определяет товар
+По фотографии приложение предлагает:
+Мы нашли:
+✅ Куриная котлета (93%)
+или
+Выберите вручную
+Если AI ошибся — сотрудник выбирает товар из списка или сканирует
+штрихкод.
+4. Выбор причины
+Большие кнопки:
+🟠 Просрочка
+🔴 Испорчен
+🟡 Поврежден
+🔥 Ошибка приготовления
+📦 Брак поставщика
+❓ Другое
+5. Количество
+[-] 3 [+]
+или
+250 г
+если весовой товар.
+
+--- PAGE 4 ---
+6. Отправить
+Большая зеленая кнопка
+✅ Подтвердить списание
+После нажатия:
+товар автоматически списывается со склада;
+фото сохраняется;
+менеджеру приходит уведомление;
+создается запись в журнале.
+Весь процесс занимает около 15 секунд.
+Должна работать камера и загрузка фотографий
+Наша натренированная модель AI roboflow должна сканировать и выводить
+результаты, работник может принять количество и тип продукта написаного ии,
+но может и делать свой выбор.
+В окне профиля мы хотим добавить API chat gpt, и вообще профиль сотрудника
+где ему будет высвечиваться его ошибки и добрые советы типо ты роняешь
+котлету, но че то че то
+Вторым выбором роли является Менеджер
+Менеджер (админ) имеет свой личный профиль в одном отдельном окне
+У него есть окно проверки запросов, там приходят все ошибки написанные
+многочисленными работниками и он может одобрять их или нет, в итоге
+одобренные запросы попадают в таблицу (новое окно)
+У менеджера есть окно аналитики, там он видит таблицу со всеми потерями,
+которую можно потом перевести в гугл таблицы
+Аналитика точек
+Top / Bottom ranking
+Денежные потери компании из за ошибок
+AI assitent выдает советы по поставщикам типо у этого поставщика плохие
+продукты основываяьс на нализе
+окно с поставщиками их контакты и статисткика
+
+--- PAGE 5 ---
+Поставщики
+Качество поставок, жалобы, брак и рейтинг поставщиков.
+RUKZENНовая заявка
+FreshFood
+Рейтинг
+58
+Жалобы
+35
+480 000 ₸
+AgroLine
+Рейтинг
+84
+Жалобы
+9
+126 000 ₸
+Qazaq Dairy
+Рейтинг
+96
+Жалобы
+4
+35 000 ₸
+Поставщики
+Связано с поставкой
+Поставщик Объем Жалобы Потери в тенге Рейтинг
+FreshFood 12.4 т 35 480 000 ₸ 58/100
+AgroLine 8.2 т 9 126 000 ₸ 84/100
+Baker Pro 6.1 т 14 168 000 ₸ 76/100
+Qazaq Dairy 5.8 т 4 35 000 ₸ 96/100
+Отчеты
+возможность скачать пдф отчеты
+
+--- PAGE 6 ---
+PDF-отчеты для дня, недели, месяца, квартала и года.
+RUKZENНовая заявка
+Сегодня
+145 000 ₸Сформировать
+Неделя
+890 000 ₸Сформировать
+Месяц
+4 250 000 ₸Сформировать
+Квартал
+11 800 000 ₸Сформировать
+Год
+39 200 000 ₸Сформировать
+iiko акт
+6 000 ₸Сформировать
+Должна быть аналитика случаев порчи овощей или продуктов. То есть
+менеджер может увидеть почему продукты портятся и какой сотрудник что
+именно роняет. А сотрудник может увидеть какие ошибки чаще всего он
+допускает и увидеть AI recommendations что ему следует делать чтобы не
+допускать повтора таких же ошибок в будущем.
+Также AI будет советовать от каких поставщиков стоит отказаться а какие
+наоборот хорошие после того как менеджер админ сделал фото закупки и
+таким образом будет выстаиваться рейтинг поставщиков.
+AI Supplier Rating
+При поступлении поставки менеджер делает фотографии товара.
+AI анализирует:
+● внешний вид продукции;
+● наличие гнили;
+● повреждения;
+● степень зрелости;
+● качество упаковки.
+После этого рассчитывается рейтинг поставщика.
+
+--- PAGE 7 ---
+Heat Map потерь
+Создать карту торговых точек.
+Для каждой точки отображать:
+🟢 Низкие потери
+🟡 Средние потери
+🔴 Высокие потери
+Руководство сразу видит проблемные точки сети.
+Сделай мобильную и десктоп версии в цветовой гамме и используй лого
+баханди
+BAHANDI — Design System
+Color Palette:
+Primary Green: #1B5E20 (dark forest green — background)
+Accent Orange: #E65100 (orange stripes)
+Text White: #FFFFFF (main text on green)
+Dark Border: #1A1A1A (outer frame/dark background)
+Light Green: #2E7D32 (hover states, secondary bg)
+Typography:
+Font Family: 'Montserrat',
+Font Weight: 700-900 (bold/extra bold)
+Text Transform: UPPERCASE
+Letter Spacing: 2-4px
+UI Style:
+Border Radius: 4-8px (sharp, industrial feel)
+Borders: 2-3px solid #1A1A1A
+Shadows: none or minimal — flat design
+Style: Bold, clean, no gradients
+Button Style:
+cssbackground-color: #E65100;
+color: #FFFFFF;
+font-weight: 700;
+text-transform: uppercase;
+border: none;
+border-radius: 4px;
+padding: 12px 24px;
+Header/Navbar:
+cssbackground-color: #1B5E20;
+
+--- PAGE 8 ---
+border-bottom: 4px solid #E65100;
+color: #FFFFFF;
+Cards/Panels:
+cssbackground-color: #FFFFFF;
+border-left: 5px solid #E65100;
+border-radius: 6px;
+Status Colors:
+Approved: #2E7D32 (green)
+Pending: #E65100 (orange)
+Rejected: #B71C1C (red)
+AI Root Cause Analysis (Поиск
+первопричин потерь)
+Система должна не только показывать факт списания, но и автоматически
+искать причины возникновения потерь.
+Примеры выводов:
+● 42% испорченных помидоров связаны с поставщиком FreshFood.
+● 31% поврежденных булочек возникают во время вечерней смены.
+● На точке Bahandi Astana 5 потери овощей на 65% выше среднего
+показателя сети.
+● Большинство случаев порчи происходит через 3-4 дня после поставки.
+AI формирует объяснение причин потерь автоматически.
+AI Forecasting
+Система прогнозирует будущие потери.
+Примеры:
+"Если текущая динамика сохранится, потери томатов в следующем месяце
+составят около 850 000 ₸."
+"Вероятность увеличения списаний овощей на точке Astana 4 составляет 78%."
+Gamification
+
+--- PAGE 9 ---
+Создать рейтинг сотрудников.
+Лучшие сотрудники месяца:
+● минимальные потери;
+● высокая точность оформления;
+● отсутствие нарушений.
+Выдавать бейджи:
+🏆 Самая аккуратная работа
+🏆 Лучший сотрудник месяца
+🏆 Минимум потерь
+Это мотивирует персонал улучшать показатели.
+Executive Dashboard
+Для руководства вывести один экран:
+● Общие потери сети.
+● Потери по точкам.
+● Потери по сотрудникам.
+● Потери по поставщикам.
+● Основные причины потерь.
+● Прогноз на следующий месяц.
+● Потенциальная экономия при устранении проблем.
+Главный AI-инсайт дня:
+"72% потерь овощей связаны всего с двумя поставщиками. Их замена может
+снизить убытки на 1.3 млн ₸ в месяц."
+Самая сильная идея для победы — добавить метрику Prevented Losses
+(Предотвращённые потери). Не просто «мы потеряли 2 млн ₸», а:
+«После внедрения рекомендаций AI потери котлет снизились на
+18%, что позволило сохранить 430 000 ₸ за месяц.»
